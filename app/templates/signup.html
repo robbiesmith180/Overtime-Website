@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Sign Up</title>
+</head>
+
+<body>
+
+  <h2>Sign Up</h2>
+
+  {% if error %}
+    <p style="color: red;">{{ error }}</p>
+  {% endif %}
+
+  <form method="POST" action="{{ url_for('signup') }}">
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username" required><br>
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required><br>
+    <label for="email_address">Email:</label>
+    <input type="email_address" id="email_address" name="email_address" required><br>
+    <label for="required_hours">Required Hours Per Week</label>
+    <input type="number" id="required_hours" name="required_hours" required><br>
+    <input type="submit" value="Sign Up">
+  </form>
+  <p>Already have an account? <a href="{{ url_for('login') }}">Login</a></p>
+
+  <button>
+    <a href="/home">Home</a>
+  </button>
+
+</body>
+</html>

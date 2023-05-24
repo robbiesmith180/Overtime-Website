@@ -9,10 +9,12 @@
 
   <h2>Sign Up</h2>
 
+  <!-- If error - display error-->
   {% if error %}
     <p style="color: red;">{{ error }}</p>
   {% endif %}
 
+  <!-- Sign Up Form-->
   <form method="POST" action="{{ url_for('signup') }}">
     <label for="username">Username:</label>
     <input type="text" id="username" name="username" required><br>
@@ -24,8 +26,11 @@
     <input type="number" id="required_hours" name="required_hours" required><br>
     <input type="submit" value="Sign Up">
   </form>
+
+  <!-- Login link-->
   <p>Already have an account? <a href="{{ url_for('login') }}">Login</a></p>
 
+  <!-- Home Button-->
   <button>
     <a href="/home">Home</a>
   </button>

@@ -8,9 +8,13 @@
 <body>
 
   <h2>Login</h2>
+
+  <!-- If error - display error-->
   {% if error %}
     <p style="color: red;">{{ error }}</p>
   {% endif %}
+
+  <!-- Login Form-->
   <form method="POST" action="{{ url_for('login') }}">
     <label for="username">Username:</label>
     <input type="text" id="username" name="username" required><br>
@@ -18,8 +22,11 @@
     <input type="password" id="password" name="password" required><br>
     <input type="submit" value="Login">
   </form>
+
+  <!-- Sign up link-->
   <p>Don't have an account? <a href="{{ url_for('signup') }}">Sign up</a></p>
 
+  <!-- Home Button-->
   <button>
     <a href="/home">Home</a>
   </button>

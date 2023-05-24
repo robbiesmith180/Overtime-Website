@@ -9,14 +9,16 @@
 
     <body>
 
-        <h1>Number Difference Calculator</h1>
+        <h1>Hours Owed Calculator</h1>
 
+            <!-- Hours owed Form-->
             <form action="/calculate" method="post">
                 <label for="input_number">Enter a number:</label>
                 <input type="number" id="input_number" name="input_number" required>
                 <input type="submit" value="Calculate">
             </form>
 
+            <!-- Login/Sign Up/Logout/Account Buttons-->
             <button>
                 <a href="/login">Login</a>
             </button>
@@ -32,17 +34,6 @@
             <button>
                 <a href="/account">Account</a>
             </button>
-
-            {% if hours %}
-                <h3>Entered Numbers:</h3>
-                <ul>
-                    {% for data in hours %}
-                        <li>{{ data.input_hours }}</li>
-                    {% endfor %}
-                </ul>
-            {% else %}
-                <p>No numbers entered yet.</p>
-            {% endif %}
 
     </body>
 

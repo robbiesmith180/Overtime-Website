@@ -8,9 +8,11 @@ numbers_list=[] #Stores entered numbers
 @app.route('/')
 @app.route('/home')
 def home_page():
+    # If the user is not logged in, redirect to the login page
     if 'user_id' not in session:
         return redirect(url_for('login'))
     
+    # Get the user and entered hours from the database
     user= User.query.get(session['user_id'])
     hours = user.hours
 
@@ -18,17 +20,25 @@ def home_page():
 
 @app.route('/calculate', methods=['POST'])
 def calculate():
+    # Get user info from database
     user = User.query.get(session['user_id'])
 
+    # Retrieve required hours from database
     hours_worked = user.required_hours
+
+    # Get the number entered by the user
     input_number = float(request.form['input_number'])
+
+    # Add the number to the list
     numbers_list.append(input_number)
 
+    # Add the entered number to the Hours database
     hours_entered = Hours(user=user, input_hours=input_number)
     db.session.add(hours_entered)
     db.session.commit()
 
 
+    # Calculate the total difference
     total_difference = sum(numbers_list) - (len(numbers_list) * hours_worked)
 
     return render_template('result.html', total_difference=total_difference)
@@ -91,9 +101,11 @@ def logout():
 
 @app.route('/account')
 def account():
+    # If the user is not logged in, redirect to the login page
     if 'user_id' not in session:
         return redirect(url_for('login'))
 
+    # Get the user and entered hours from the database
     user = User.query.get(session['user_id'])
     hours = user.hours
     return render_template('account.html', user=user, hours=hours)

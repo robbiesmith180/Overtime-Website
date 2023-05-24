@@ -7,8 +7,11 @@
     
         <body>
             <h1>Account</h1>
+
+            <!-- Jinja Code to display the username -->
             <p>Logged in as {{ user.username }}</p>
 
+            <!-- Jinja Code to display the hours worked and the week entered - Using id as Week number-->
             {% if hours %}
                 <table>
                     <thead>
@@ -30,10 +33,12 @@
                 <p>No numbers entered yet.</p>
             {% endif %}
 
+            <!-- Home Button-->
             <button>
                 <a href="/home">HOME</a>
             </button>
 
+            <!-- Logout Button-->
             <button>
                 <a href="/logout">Logout</a>
             </button>

@@ -1,7 +1,7 @@
 from app import app
 from flask import render_template, request, session, redirect, url_for
 from app import app, db
-from app.models import User
+from app.models import User, Hours
 
 numbers_list=[] #Stores entered numbers
 
@@ -10,7 +10,11 @@ numbers_list=[] #Stores entered numbers
 def home_page():
     if 'user_id' not in session:
         return redirect(url_for('login'))
-    return render_template('home.html')
+    
+    user= User.query.get(session['user_id'])
+    hours = user.hours
+
+    return render_template('home.html', hours=hours)
 
 @app.route('/calculate', methods=['POST'])
 def calculate():
@@ -19,6 +23,11 @@ def calculate():
     hours_worked = user.required_hours
     input_number = float(request.form['input_number'])
     numbers_list.append(input_number)
+
+    hours_entered = Hours(user=user, input_hours=input_number)
+    db.session.add(hours_entered)
+    db.session.commit()
+
 
     total_difference = sum(numbers_list) - (len(numbers_list) * hours_worked)
 
@@ -73,3 +82,18 @@ def signup():
             return render_template('signup.html', error='User already exists')
     else:
         return render_template('signup.html', error=None)
+
+@app.route('/logout')
+def logout():
+    # Remove the user id from the session if it exists
+    session.pop('user_id', None)
+    return redirect(url_for('login'))
+
+@app.route('/account')
+def account():
+    if 'user_id' not in session:
+        return redirect(url_for('login'))
+
+    user = User.query.get(session['user_id'])
+    hours = user.hours
+    return render_template('account.html', user=user, hours=hours)

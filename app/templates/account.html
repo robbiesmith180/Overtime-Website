@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+ <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>Account</title>
+        </head>
+    
+        <body>
+            <h1>Account</h1>
+            <p>Logged in as {{ user.username }}</p>
+
+            {% if hours %}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>WEEK</th>
+                            <th>HOURS WORKED</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for data in hours %}
+                            <tr>
+                                <td>{{ data.id }}</td>
+                                <td>{{ data.input_hours }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p>No numbers entered yet.</p>
+            {% endif %}
+
+            <button>
+                <a href="/home">HOME</a>
+            </button>
+
+            <button>
+                <a href="/logout">Logout</a>
+            </button>
+ </html>
